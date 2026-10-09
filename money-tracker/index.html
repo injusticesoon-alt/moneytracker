@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TabunganKu - Aplikasi Tabungan Digital & Money Tracker</title>
+  <meta name="description" content="Kelola keuangan, catat setoran dan penarikan tabungan, serta pantau target finansial Anda secara real-time dengan TabunganKu. Ready for Netlify.">
+  
+  <!-- Preconnect Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-light">
+  
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
+        <h1 class="logo-text">Tabungan<span>Ku</span></h1>
+      </div>
+      <div class="header-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="btn-icon" aria-label="Toggle Theme">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <!-- Reset Button -->
+        <button id="reset-app-btn" class="btn btn-danger-outline btn-sm">Reset Data</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container app-content">
+    
+    <!-- Hero / Motivation Section -->
+    <section class="motivation-banner" id="motivation-banner">
+      <div class="banner-content">
+        <div class="quote-tag">💡 Kata Motivasi Hari Ini</div>
+        <p class="quote-text" id="quote-text">"Sedikit demi sedikit, lama-lama menjadi bukit."</p>
+        <span class="quote-author">— TabunganKu Financial Advisor</span>
+      </div>
+    </section>
+
+    <!-- Summary Dashboard (Stats Grid) -->
+    <section class="dashboard-stats" aria-label="Dashboard Ringkasan">
+      <!-- Balance Card -->
+      <div class="stat-card balance-card">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="18"></line><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+        </div>
+        <div class="stat-info">
+          <h3>Total Saldo Tabungan</h3>
+          <p class="stat-value text-glowing" id="total-saldo">Rp 0</p>
+          <span class="stat-trend" id="financial-insight">Memuat analisis finansial...</span>
+        </div>
+      </div>
+
+      <!-- Setoran Card -->
+      <div class="stat-card income-card">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+        </div>
+        <div class="stat-info">
+          <h3>Total Setoran (Masuk)</h3>
+          <p class="stat-value" id="total-setor">Rp 0</p>
+          <span class="stat-subtext">Uang yang berhasil disimpan</span>
+        </div>
+      </div>
+
+      <!-- Penarikan Card -->
+      <div class="stat-card expense-card">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+        </div>
+        <div class="stat-info">
+          <h3>Total Penarikan (Keluar)</h3>
+          <p class="stat-value" id="total-tarik">Rp 0</p>
+          <span class="stat-subtext">Uang yang ditarik dari tabungan</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- App Interactive Layout -->
+    <div class="app-grid">
+      
+      <!-- Column Left: Forms (Transactions & Targets) -->
+      <aside class="sidebar-forms">
+        
+        <!-- Transaction Form Card -->
+        <div class="card bg-glass">
+          <div class="card-header">
+            <h2>Catat Transaksi</h2>
+            <p>Masukkan setoran atau penarikan tabungan baru Anda</p>
+          </div>
+          <form id="transaction-form" class="app-form">
+            <!-- Transaction Type Switch -->
+            <div class="form-group">
+              <label>Jenis Transaksi</label>
+              <div class="type-toggle">
+                <input type="radio" id="type-setor" name="tx-type" value="setor" checked>
+                <label for="type-setor" class="toggle-btn toggle-setor">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  Setor Tabungan
+                </label>
+                
+                <input type="radio" id="type-tarik" name="tx-type" value="tarik">
+                <label for="type-tarik" class="toggle-btn toggle-tarik">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  Tarik Tabungan
+                </label>
+              </div>
+            </div>
+
+            <!-- Amount Input -->
+            <div class="form-group">
+              <label for="tx-amount">Nominal Tabungan (Rp)</label>
+              <div class="input-wrapper">
+                <span class="input-prefix">Rp</span>
+                <input type="number" id="tx-amount" placeholder="Contoh: 150000" min="1" required autocomplete="off">
+              </div>
+            </div>
+
+            <!-- Goal/Target Selection -->
+            <div class="form-group">
+              <label for="tx-target">Pilih Target Tabungan</label>
+              <select id="tx-target" required>
+                <option value="Lainnya">Lainnya / Umum</option>
+              </select>
+            </div>
+
+            <!-- Note Input -->
+            <div class="form-group">
+              <label for="tx-note">Keterangan / Catatan</label>
+              <input type="text" id="tx-note" placeholder="Contoh: Tabungan mingguan, Beli keyboard" required autocomplete="off">
+            </div>
+
+            <!-- Date Input -->
+            <div class="form-group">
+              <label for="tx-date">Tanggal</label>
+              <input type="date" id="tx-date" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Simpan Transaksi</button>
+          </form>
+        </div>
+
+        <!-- Add Target Form Card -->
+        <div class="card bg-glass target-creation-card">
+          <div class="card-header">
+            <h2>Tambah Target Finansial</h2>
+            <p>Tentukan impian finansial baru yang ingin Anda kejar</p>
+          </div>
+          <form id="target-form" class="app-form">
+            <!-- Goal Name -->
+            <div class="form-group">
+              <label for="target-name">Nama Impian / Target</label>
+              <input type="text" id="target-name" placeholder="Contoh: Liburan Bali, Dana Darurat" required autocomplete="off">
+            </div>
+
+            <!-- Goal Amount -->
+            <div class="form-group">
+              <label for="target-amount">Jumlah Target (Rp)</label>
+              <div class="input-wrapper">
+                <span class="input-prefix">Rp</span>
+                <input type="number" id="target-amount" placeholder="Contoh: 5000000" min="1" required autocomplete="off">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-accent btn-block">Buat Target</button>
+          </form>
+        </div>
+      </aside>
+
+      <!-- Column Right: Dashboard & Lists -->
+      <section class="main-lists">
+        
+        <!-- Target Progress Card -->
+        <div class="card bg-glass">
+          <div class="card-header">
+            <div class="header-flex">
+              <div>
+                <h2>Progress Target Tabungan</h2>
+                <p>Pantau sejauh mana tabungan Anda mendekati impian Anda</p>
+              </div>
+              <span class="badge" id="target-count-badge">0 Target</span>
+            </div>
+          </div>
+          <div class="target-list" id="target-list-container">
+            <!-- Dynamic list will be rendered here -->
+            <div class="empty-state">
+              <div class="empty-icon">🎯</div>
+              <p>Belum ada target finansial yang dibuat. Silakan tambahkan target pertama Anda di panel sebelah kiri.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transaction History Card -->
+        <div class="card bg-glass">
+          <div class="card-header">
+            <div class="header-flex table-header-flex">
+              <div>
+                <h2>Riwayat Transaksi</h2>
+                <p>Daftar lengkap catatan keuangan Anda</p>
+              </div>
+              <div class="history-filters">
+                <input type="text" id="search-tx" placeholder="Cari catatan..." class="filter-input">
+                <select id="filter-target" class="filter-select">
+                  <option value="all">Semua Target</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Transaksi</th>
+                  <th>Keterangan</th>
+                  <th>Kategori Target</th>
+                  <th class="text-right">Nominal</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="transaction-rows">
+                <!-- Dynamic rows will be rendered here -->
+                <tr>
+                  <td colspan="6" class="table-empty">
+                    <div class="empty-state">
+                      <div class="empty-icon">📝</div>
+                      <p>Belum ada riwayat transaksi. Masukkan setoran pertama Anda sekarang!</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container footer-container">
+      <div class="footer-info">
+        <p>&copy; 2026 TabunganKu. Aplikasi Tabungan Digital & Money Tracker.</p>
+        <p class="footer-subtext">Made with HTML, CSS, Vanilla JS, and Netlify Functions (Python)</p>
+      </div>
+      <div class="footer-badge">
+        <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg" alt="Deploys to Netlify" />
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Main Javascript -->
+  <script src="app.js"></script>
+</body>
+</html>
